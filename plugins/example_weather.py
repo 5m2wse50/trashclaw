@@ -32,7 +32,7 @@ def run(city: str = "London", **kwargs) -> str:
     """Fetch weather from wttr.in — free, no auth, returns plain text."""
     try:
         url = f"https://wttr.in/{city.replace(' ', '+')}?format=3"
-        req = urllib.request.Request(url, headers={"User-Agent": "TrashClaw"})
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"})
         with urllib.request.urlopen(req, timeout=10) as resp:
             return resp.read().decode("utf-8").strip()
     except Exception as e:

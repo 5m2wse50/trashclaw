@@ -986,7 +986,7 @@ def tool_list_dir(path: str = None) -> str:
 
 def tool_fetch_url(url: str) -> str:
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) TrashClaw/0.2'})
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'})
         with urllib.request.urlopen(req, timeout=30) as response:
             html = response.read().decode('utf-8', errors='ignore')
             
@@ -1661,7 +1661,7 @@ def _try_parse_tool_calls_from_text(text: str) -> Optional[List[Dict]]:
     calls = []
 
     # Format 1: <tool_call> tags
-    tag_matches = re.findall(r'<tool_call>\s*(\{.*?\})\s*</tool_call>', text, re.DOTALL)
+    tag_matches = re.findall(r'<tool_call>\s*(\{.*?\}s*</tool_call>', text, re.DOTALL)
     for m in tag_matches:
         try:
             obj = json.loads(m)
@@ -1678,7 +1678,7 @@ def _try_parse_tool_calls_from_text(text: str) -> Optional[List[Dict]]:
         return calls
 
     # Format 2: JSON in code blocks
-    block_matches = re.findall(r'```(?:json)?\s*(\{.*?\})\s*```', text, re.DOTALL)
+    block_matches = re.findall(r'```(?:json)?\s*(\{.*?\}s*```', text, re.DOTALL)
     for m in block_matches:
         try:
             obj = json.loads(m)
@@ -2324,7 +2324,7 @@ def handle_slash(cmd: str) -> bool:
             global PENDING_IMAGE
             size = os.path.getsize(screenshot_path)
             with open(screenshot_path, "rb") as f:
-                img_data = _b64.b64encode(f.read()).decode("utf-8")
+                img_data = _b64.get_media_type(resolved).decode("utf-8")
             PENDING_IMAGE = {
                 "path": screenshot_path,
                 "base64": img_data,

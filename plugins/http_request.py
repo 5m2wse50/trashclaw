@@ -27,8 +27,8 @@ TOOL_DEF = {
             },
             "method": {
                 "type": "string",
-                "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"],
-                "description": "HTTP method (default: GET)"
+                "description": "HTTP method (GET, POST, PUT, DELETE, PATCH)",
+                "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"]
             },
             "headers": {
                 "type": "object",
@@ -65,7 +65,7 @@ def run(url: str, method: str = "GET", headers: Optional[Dict[str, str]] = None,
         Formatted response string with status, headers, and body
     """
     # Prepare headers
-    req_headers = {"User-Agent": "TrashClaw-HTTP/1.0"}
+    req_headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"}
     if headers:
         req_headers.update(headers)
 
@@ -95,7 +95,7 @@ def run(url: str, method: str = "GET", headers: Optional[Dict[str, str]] = None,
                     body_str += f"\n... (truncated, {len(raw_body)} total chars)"
 
             # Format output
-            result = f"HTTP {method.upper()} {url}\n"
+            result = f"HTTP {method.upper()}: {url}\n"
             result += f"Status: {status}\n"
             result += f"Headers:\n"
             for k, v in list(resp_headers.items())[:10]:  # Limit headers shown
